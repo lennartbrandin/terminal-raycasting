@@ -4,7 +4,7 @@
 #include <stdbool.h>
 #include "vector.h"
 
-#define FIELD_LEN 12
+#define FIELD_LEN 24
 #define MAX_CHAR 64
 #define WALL_CHAR '1'
 #define EMPTY_CHAR ' '
@@ -14,14 +14,20 @@
 typedef struct{
     char display; // Displayed character
     bool transparent; // Can rays pass through?
+    bool traversable; // Can entities walk through?
     bool hit_by_ray; // Reset every raycast, used to color fov in print_field (minimap)
 } object_t; // Type of object at field pos
 
 typedef struct{
+    object_t properties;
+    vector_t pos;
+    double angle; // Global orientated angle (Unit circle like)
+    int fov; // FoV in degree
+} entity_t;
+
+typedef struct{
     object_t** field;
-    vector_t camera; // Location of camera
-    double camera_angle; // 0° is to the right, like unit circle
-    int camera_fov; // Field of view in degree, rotated with camera_angle
+    entity_t player;
     bool exit; // Exit game in main loop
 } game_t;
 
@@ -35,9 +41,9 @@ bool valid_coordinates(int x, int y);
 /**
  * Check if position is too close to wall
  * @param game Pointer to game data
- * @param camera Camera position
+ * @param pos position
 */
-bool valid_position(game_t* game, vector_t camera);
+bool valid_position(game_t* game, vector_t pos);
 
 
 /**
@@ -50,9 +56,9 @@ void initialize_field(game_t* game);
 /**
  * Create game data and initialize field
  * @param game Pointer to game data
- * @param x Horizontal coordinate of camera
- * @param y Vertical coordinate of camera
- * @param angle Angle of camera in degree
+ * @param x Horizontal coordinate of player
+ * @param y Vertical coordinate of player
+ * @param angle Angle of player camera in degree
  * @param fov Field of view in degree
 */
 void initialize_game(game_t* game, int x, int y, double angle, int fov);

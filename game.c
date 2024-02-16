@@ -6,19 +6,31 @@
 
 // Piet wants a hardcoded field to modify
 // This is copied into the field array, we could work directly on this, but i want to keep my malloc
-bool map_template[FIELD_LEN][FIELD_LEN] = {
-    { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
-    { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-    { 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 1 },
-    { 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1 },
-    { 1, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 1 },
-    { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-    { 1, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1 },
-    { 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1 },
-    { 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 1 },
-    { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-    { 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1 },
-    { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 },
+char map_template[FIELD_LEN][FIELD_LEN] = {
+    { 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W' },
+    { 'W', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'W', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'W' },
+    { 'W', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'W', '0', '0', '0', '0', '0', 'W', 'W', 'W', '0', '0', '0', 'W' },
+    { 'W', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'W', '0', '0', '0', '0', '0', '0', '0', 'W', '0', '0', '0', 'W' },
+    { 'W', '0', '0', 'W', '0', 'W', '0', '0', '0', '0', '0', 'W', '0', '0', '0', '0', '0', 'W', '0', 'W', '0', '0', '0', 'W' },
+    { 'W', '0', '0', 'W', '0', 'W', '0', '0', '0', '0', '0', 'W', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'W' },
+    { 'W', '0', '0', 'W', 'W', 'W', '0', '0', '0', '0', '0', 'W', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'W' },
+    { 'W', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'W', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'W' },
+    { 'W', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'W', 'W', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'W' },
+    { 'W', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'W' },
+    { 'W', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'W' },
+    { 'W', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'W' },
+    { 'W', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'W', 'W', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'W' },
+    { 'W', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'W', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'W' },
+    { 'W', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'W', '0', '0', '0', '0', 'W', '0', '0', '0', '0', '0', '0', 'W' },
+    { 'W', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'W', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'W' },
+    { 'W', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'W', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'W' },
+    { 'W', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'W', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'W' },
+    { 'W', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'W', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'W' },
+    { 'W', '0', 'W', '0', 'W', '0', '0', '0', '0', '0', '0', 'W', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'W' },
+    { 'W', '0', 'W', '0', '0', '0', '0', '0', '0', '0', '0', 'W', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'W' },
+    { 'W', '0', 'W', 'W', 'W', '0', '0', '0', '0', '0', '0', 'W', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'W' },
+    { 'W', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'W', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', 'W' },
+    { 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W', 'W' },
 };
 
 bool valid_coordinates(int x, int y) {
@@ -31,10 +43,10 @@ bool valid_coordinates(int x, int y) {
     }
 }
 
-bool valid_position(game_t* game, vector_t camera) {
-    // Check if camera is too close to any wall
-    for (int y = camera.y - MIN_DIST; y <= camera.y + MIN_DIST; y++) {
-        for (int x = camera.x - MIN_DIST; x <= camera.x + MIN_DIST; x++) {
+bool valid_position(game_t* game, vector_t pos) {
+    // Check if pos is too close to any wall
+    for (int y = pos.y - MIN_DIST; y <= pos.y + MIN_DIST; y++) {
+        for (int x = pos.x - MIN_DIST; x <= pos.x + MIN_DIST; x++) {
             if (!valid_coordinates(x, y)) {
                 return false;
             }
@@ -52,12 +64,12 @@ void initialize_field(game_t* game) {
     PRINT("Initializing field\n");
     game->field = malloc(sizeof(object_t*) * pow(FIELD_LEN, 2));
 
-    for (int y = FIELD_LEN; y >= 0; y--) {
+    for (int y = FIELD_LEN - 1; y >= 0; y--) {
         for (int x = 0; x < FIELD_LEN; x++) {
             object_t* object = malloc(sizeof(object_t));
             
             // If on the edge or true in template make object to wall
-            if (map_template[y][x] || x == 0 || x == FIELD_LEN-1 || y == 0 || y == FIELD_LEN-1) {
+            if (map_template[y][x] == 'W' || x == 0 || x == FIELD_LEN-1 || y == 0 || y == FIELD_LEN-1) {
                 object->display = WALL_CHAR;
                 object->transparent = false;
             } else {
@@ -72,10 +84,16 @@ void initialize_field(game_t* game) {
 
 void initialize_game(game_t* game, int x, int y, double angle, int fov) {
     PRINT("Initializing game\n");
+    entity_t player;
+    player.pos = (vector_t){x, y};
+    player.angle = angle;
+    player.fov = fov;
+    player.properties.display = PLAYER_CHAR;
+    player.properties.transparent = false;
+    player.properties.traversable = false;
+
+    game->player = player;
     game->exit = false;
-    game->camera = (vector_t){x, y};
-    game->camera_angle = angle;
-    game->camera_fov = fov;
     initialize_field(game);
 }
 
@@ -90,8 +108,9 @@ void free_field(game_t* game) {
 void print_field(game_t* game) {
     PRINT("Printing field\n");
     // Display Player on field for time of print
-    object_t* original = get_object(game, game->camera.x, game->camera.y);
-    set_object(game, game->camera.x, game->camera.y, &(object_t){PLAYER_CHAR, true, true});
+    vector_t* pos = &game->player.pos;
+    object_t* original = get_object(game, pos->x, pos->y);
+    set_object(game, pos->x, pos->y, &game->player.properties);
 
     for (int y = FIELD_LEN - 1; y >= 0; y--) {
         for (int x = 0; x < FIELD_LEN; x++) {
@@ -106,7 +125,7 @@ void print_field(game_t* game) {
     }
 
     // Reset object where player was
-    set_object(game, game->camera.x, game->camera.y, original);
+    set_object(game, pos->x, pos->y, original);
 }
 
 object_t* get_object(game_t* game, int x, int y) {

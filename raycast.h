@@ -15,8 +15,9 @@ void reset_ray_hits(game_t* game);
 /**
  * Cast rays over fov calculate distance to wall and draw columns
  * @param game Pointer to game data
+ * @param pov Entity to render its FoV
  * @param screen Pointer to screen data
 */
-void raycast(game_t* game, screen_t* screen);
+void raycast(game_t* game, entity_t* pov, screen_t* screen);
 
 #endif

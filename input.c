@@ -76,42 +76,42 @@ bool ms_mov(int file_driver, int* mov) {
 }
 
 // Process mouse input
-void turn(game_t* game, int dist) {
-    double angle = game->camera_angle - dist*CAMERA_ANGLE_INCR_MOUSE;
+void turn(entity_t* pov, int dist) {
+    double angle = pov->angle - dist*CAMERA_ANGLE_INCR_MOUSE;
 
     if (fabs(angle) > 360) {
         angle = fmod(angle, 360);
     }
-    game->camera_angle = angle;
+    pov->angle = angle;
 }
 
 // Process keyboard input
-void move(game_t* game) {
+void move(game_t* game, entity_t* pov) {
     int i = KEYPRESS_PER_FRAME;
     // Process multiple keypresses per frame for responsive motion
     while (i--) {
         if(kb_hit()){ 
             char key = getchar();
 
-            vector_t movement = game->camera;
-            double camera_angle= game->camera_angle;
+            vector_t movement = pov->pos;
+            double camera_angle= pov->angle;
 
             switch (key) {
                 case 'w':
-                    movement.x += cos(deg_to_rad(game->camera_angle)) * CAMERA_MOVE_INCR;
-                    movement.y += sin(deg_to_rad(game->camera_angle)) * CAMERA_MOVE_INCR;
+                    movement.x += cos(deg_to_rad(pov->angle)) * CAMERA_MOVE_INCR;
+                    movement.y += sin(deg_to_rad(pov->angle)) * CAMERA_MOVE_INCR;
                     break;
                 case 's':
-                    movement.x -= cos(deg_to_rad(game->camera_angle)) * CAMERA_MOVE_INCR;
-                    movement.y -= sin(deg_to_rad(game->camera_angle)) * CAMERA_MOVE_INCR;
+                    movement.x -= cos(deg_to_rad(pov->angle)) * CAMERA_MOVE_INCR;
+                    movement.y -= sin(deg_to_rad(pov->angle)) * CAMERA_MOVE_INCR;
                     break;
                 case 'a':
-                    movement.x -= sin(deg_to_rad(game->camera_angle)) * CAMERA_MOVE_INCR;
-                    movement.y += cos(deg_to_rad(game->camera_angle)) * CAMERA_MOVE_INCR;
+                    movement.x -= sin(deg_to_rad(pov->angle)) * CAMERA_MOVE_INCR;
+                    movement.y += cos(deg_to_rad(pov->angle)) * CAMERA_MOVE_INCR;
                     break;
                 case 'd':
-                    movement.x += sin(deg_to_rad(game->camera_angle)) * CAMERA_MOVE_INCR;
-                    movement.y -= cos(deg_to_rad(game->camera_angle)) * CAMERA_MOVE_INCR;
+                    movement.x += sin(deg_to_rad(pov->angle)) * CAMERA_MOVE_INCR;
+                    movement.y -= cos(deg_to_rad(pov->angle)) * CAMERA_MOVE_INCR;
                     break;
                 case 'q':
                     camera_angle += CAMERA_ANGLE_INCR;
@@ -126,13 +126,13 @@ void move(game_t* game) {
             }
 
             if (valid_position(game, movement)) {
-                game->camera = movement;
+                pov->pos = movement;
             }
             
             if (fabs(camera_angle) > 360) {
                 camera_angle = fmod(camera_angle, 360);
             }
-            game->camera_angle = camera_angle;
+            pov->angle= camera_angle;
         }
     }
     return;

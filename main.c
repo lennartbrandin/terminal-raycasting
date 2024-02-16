@@ -39,21 +39,19 @@ int main() {
   /* Change screen mode */
   //screen.screen_mode = SM_ANSI_COLORS;
 
-  // Render only when there is input
   while (!game.exit) {
-    raycast(&game, &screen);
+    raycast(&game, &game.player, &screen);
     render_frame(&screen);
-    //fflush(stdout);
 
     int mouse_mov = 0;
-    // Await input
+    // Render only when there is input
     while (!kb_hit() && !ms_mov(mouse_fd, &mouse_mov)) {
       usleep(KEYPRESS_CHECK_INTERVAL);
     }
-    turn(&game, mouse_mov);
-    move(&game);
+    turn(&game.player, mouse_mov);
+    move(&game, &game.player);
   }
-   
+  
   destroy_screen(&screen);
   free_field(&game);
   PRINT("Game ended\n");

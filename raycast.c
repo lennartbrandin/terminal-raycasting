@@ -12,11 +12,11 @@ void reset_ray_hits(game_t* game) {
     }
 }
 
-void raycast(game_t* game, screen_t* screen) {
+void raycast(game_t* game, entity_t* pov, screen_t* screen) {
     // Calculate Field of view begin & end in degree
     // The ray is casted from "left" to "right", as the screen is drawn from left to right
-    double degree = game->camera_angle + game->camera_fov/2;
-    double degree_incr = (double)game->camera_fov / screen->num_colums;
+    double degree = pov->angle + pov->fov/2;
+    double degree_incr = (double)pov->fov / screen->num_colums;
 
     // Reset hit_by_ray for every object
     reset_ray_hits(game);
@@ -25,7 +25,7 @@ void raycast(game_t* game, screen_t* screen) {
     for (int i = 0; i < screen->num_colums; degree -= degree_incr) {
         double rayCos = cos(deg_to_rad(degree)) / PRECISION;
         double raySin = sin(deg_to_rad(degree)) / PRECISION;
-        vector_t ray = game->camera;
+        vector_t ray = pov->pos;
         
         object_t* object;
         do {
@@ -36,15 +36,15 @@ void raycast(game_t* game, screen_t* screen) {
             object->hit_by_ray = true;
         } while (object->transparent);
 
-        double distance = v_dist(game->camera, ray);
+        double distance = v_dist(pov->pos, ray);
         
         // Rotate hypotenuse to angle of camera
-        distance *= cos(deg_to_rad(degree - game->camera_angle)); // Correct fisheye effect
+        distance *= cos(deg_to_rad(degree - pov->angle)); // Correct fisheye effect
 
         construct_frame_column(screen, distance);
         i++;
     }
-    PRINT("Camera: (%.2f, %.2f), Angle: %.2f\n", game->camera.x, game->camera.y, game->camera_angle);
+    PRINT("Camera: (%.2f, %.2f), Angle: %.2f\n", pov->pos.x, pov->pos.y, pov->angle);
     PRINT("Colums (%d/%d) written\n", screen->frame_col_counter, screen->num_colums);
     print_field(game);
     fflush(out_file);

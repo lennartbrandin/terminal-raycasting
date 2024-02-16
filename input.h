@@ -50,14 +50,15 @@ bool kb_hit(void);
 bool ms_mov(int file_driver, int* mov);
 
 /**
- * Turn camera
- * @param game Pointer to game data
+ * Turn camera of entity
+ * @param pov Pointer to entity
  * @param dist Distance to turn
 */
-void turn(game_t *game, int dist);
+void turn(entity_t* pov, int dist);
 
 /**
- * Move camera based on buffered keypresses
+ * Move entity based on buffered keypresses
  * @param game Pointer to game data
+ * @param pov entity to move
 */
-void move(game_t *game);
+void move(game_t *game, entity_t* pov);

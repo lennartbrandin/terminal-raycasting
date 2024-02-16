@@ -11,7 +11,7 @@
 
 const char* available_colors_bg[NUM_COLORS] = { ANSI_CC_BG_WHITE, ANSI_CC_BG_BRIGHT_CYAN, ANSI_CC_BG_BLUE, ANSI_CC_BG_BRIGHT_BLUE, ANSI_CC_BG_BRIGHT_MAGENTA, ANSI_CC_BG_BRIGHT_RED, ANSI_CC_BG_BRIGHT_YELLOW, ANSI_CC_BG_BRIGHT_GREEN };
 const char* available_colors_fg[NUM_COLORS] = { ANSI_CC_FG_WHITE, ANSI_CC_FG_BRIGHT_CYAN, ANSI_CC_FG_BLUE, ANSI_CC_FG_BRIGHT_BLUE, ANSI_CC_FG_BRIGHT_MAGENTA, ANSI_CC_FG_BRIGHT_RED, ANSI_CC_FG_BRIGHT_YELLOW, ANSI_CC_FG_BRIGHT_GREEN };
-const char available_characters[NUM_CHARACTERS] = { '.', '+', '*', 'o', 'Q', '&', '0', '#' };
+const char available_characters[NUM_CHARACTERS] = { '~', '+', '*', 'o', 'Q', '&', '0', '#' };
 const char sky_char = '`';
 const char floor_char = '-';
 
@@ -42,7 +42,7 @@ void construct_frame_column(screen_t* screen, double distance) {
 
     char wall_char;
     if ((int) round(distance) < NUM_CHARACTERS) {
-        wall_char = available_characters[NUM_CHARACTERS - 1 - (int)round(distance)];
+        wall_char = available_characters[NUM_CHARACTERS - 1 - (int)round(distance)]; // -(int) round(distance) For reverse order
     } else {
         wall_char = available_characters[0];
     }
@@ -100,9 +100,13 @@ void render_frame(screen_t* screen) {
 }
 
 void destroy_screen(screen_t* screen) {
-    for (unsigned int i = 0; i < screen->num_colums; i++) {
-        PRINT("Freeing framebuffer row %d: %p\n", i, screen->framebuffer[i]);
-        fflush(out_file);
+    // Clear terminal
+    for (int i = 0; i < screen->num_rows; i++) {
+        printf(ANSI_DEL_LINE);
+        printf(ANSI_MOV_UP);
+    }
+
+    for (unsigned int i = 0; i < screen->num_rows; i++) {
         free(screen->framebuffer[i]);
     }
     free(screen->framebuffer);

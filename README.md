@@ -1,6 +1,5 @@
-
-[Highres_highrefresh.webm](https://github.com/lennartbrandin/terminal-raycasting/assets/92579517/9bec83b6-1a21-45bf-bcb7-3e4af6dd9678)
-
+[![](https://lennartbrandin.com/static/ppi/Highres_lowrefresh.png)](https://lennartbrandin.com/static/HRes_HFps.mp4)
+**Click for video**
 # Konzept & Einteilung
 Die grundlegende Idee ist, ein 2D Array, basierend auf einer Position im Raum, auf dem Terminal als "3D" Render darzustellen.
 Hierzu kann man dies in 3 Schritte aufteilen:
