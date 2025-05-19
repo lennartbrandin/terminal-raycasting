@@ -17,3 +17,23 @@ $(TARGET): $(FILES)
 clean:
 	rm $(TARGET)
 	
+gprof:
+	$(CC) $(CFLAGS) -pg -o $(TARGET) $(FILES) $(LDFLAGS) # -O0 
+	./$(TARGET)
+	gprof $(TARGET) gmon.out > analysis.txt
+	# rm gmon.out
+
+perf:
+	$(CC) $(CFLAGS) -o $(TARGET) $(FILES) $(LDFLAGS)
+	perf record ./$(TARGET)
+	perf report
+
+perf-pg:
+	$(CC) $(CFLAGS) -pg -o $(TARGET) $(FILES) $(LDFLAGS)
+	perf record ./$(TARGET)
+	perf report
+
+valgrind:
+	$(CC) $(CFLAGS) -pg -O0 -o $(TARGET) $(FILES) $(LDFLAGS)
+	valgrind --tool=callgrind ./$(TARGET)
+	rm $(TARGET)

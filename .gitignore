@@ -2,4 +2,6 @@ test*
 error.txt
 output.txt
 solution*
-a.out
+*.out
+*analysis*
+perf*
