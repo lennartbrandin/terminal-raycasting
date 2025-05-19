@@ -1,4 +1,4 @@
-[![](https://lennartbrandin.com/static/ppi/Highres_lowrefresh.png)](https://lennartbrandin.com/static/HRes_HFps.mp4)
+[![](https://cdn.lennartbrandin.com/static/MedRes_preview.png)](https://cdn.lennartbrandin.com/static/MedRes_demo.mp4)
 **Click for video**
 # Konzept & Einteilung
 Die grundlegende Idee ist, ein 2D Array, basierend auf einer Position im Raum, auf dem Terminal als "3D" Render darzustellen.
